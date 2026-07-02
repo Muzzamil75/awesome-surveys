@@ -1,0 +1,27 @@
+<section class="survey-form card-page">
+  <form *ngIf="survey | async as survey">
+    <header>
+      <h1>
+        {{ survey.title }}
+      </h1>
+    </header>
+
+    <ng-container *ngFor="let question of survey.questions">
+      <app-survey-question
+        [question]="question"
+        (saveAnswer)="saveAnswer($event)"
+      ></app-survey-question>
+
+      <hr />
+    </ng-container>
+
+    <section class="action-button">
+      <button
+        (click)="completeSurvey($event)"
+        [disabled]="!isSurveryFilled(survey)"
+      >
+        Complete
+      </button>
+    </section>
+  </form>
+</section>
